@@ -11,6 +11,9 @@ import support_icon from "./support_icon.svg";
 import cross_icon from "./cross_icon.svg";
 import star_icon from "./star_icon.svg";
 import stardull_icon from "./stardull_icon.svg";
+import stripe_logo from "./stripe_logo.svg";
+import paypal_logo from "./paypal_logo.svg";
+import visa_logo from "./visa_logo.svg";
 import img1 from "./img1.jpg";
 import img2 from "./img2.jpg";
 import img3 from "./img3.jpg";
@@ -1267,9 +1270,7 @@ import img1253 from "./img1253.jpg";
 import img1254 from "./img1254.jpg";
 import img1255 from "./img1255.jpg";
 import img1256 from "./img1256.jpg";
-import stripe_logo from "./stripe_logo.svg";
-import paypal_logo from "./paypal_logo.svg";
-import visa_logo from "./visa_logo.svg";
+
 export const assets = {
   logo,
   search,
@@ -1284,6 +1285,9 @@ export const assets = {
   cross_icon,
   star_icon,
   stardull_icon,
+  stripe_logo,
+  paypal_logo,
+  visa_logo,
   img1,
   img2,
   img3,
@@ -2541,9 +2545,6 @@ export const assets = {
   img1254,
   img1255,
   img1256,
-  stripe_logo,
-  paypal_logo,
-  visa_logo,
 };
 
 export const products = [
