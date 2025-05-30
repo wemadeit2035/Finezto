@@ -7,25 +7,42 @@ import RelatedProducts from "../components/RelatedProducts";
 const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
-  const [productData, setProductData] = useState(false);
+  const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
+  const [showNotification, setShowNotification] = useState(false); // Added state
+
   const fetchProductData = async () => {
-    products.map((item) => {
+    products.forEach((item) => {
       if (item._id === productId) {
         setProductData(item);
         setImage(item.image[0]);
-
-        return null;
       }
     });
   };
+
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
 
+  // Notification handler
+  const handleAddToCart = () => {
+    if (!size) return; // Prevent adding without size
+
+    addToCart(productData._id, size);
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 2000);
+  };
+
   return productData ? (
-    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
+    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 relative">
+      {/* Notification */}
+      {showNotification && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 transition-all animate-fadeInOut">
+          Added to cart!
+        </div>
+      )}
+
       {/* Product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
         {/* Product Images */}
@@ -38,11 +55,11 @@ const Product = () => {
                 src={item}
                 key={index}
                 className={`w-1/4 sm:w-full aspect-square object-cover cursor-pointer border-2 transition-all
-          ${
-            image === item
-              ? "border-black"
-              : "border-transparent hover:border-gray-300"
-          }`}
+                  ${
+                    image === item
+                      ? "border-black"
+                      : "border-transparent hover:border-gray-300"
+                  }`}
                 alt={`Thumbnail ${index + 1}`}
               />
             ))}
@@ -68,7 +85,7 @@ const Product = () => {
             <img src={assets.stardull_icon} alt="" className="w-3 5" />
             <p className="pl-2">(122)</p>
           </div>
-          <p className="mt-5 text-3xl font-medium">
+          <p className="mt-5 text-3xl font-medium text-green-600">
             {currency}
             {productData.price}
           </p>
@@ -92,8 +109,11 @@ const Product = () => {
             </div>
           </div>
           <button
-            onClick={() => addToCart(productData._id, size)}
-            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            onClick={handleAddToCart}
+            disabled={!size}
+            className={`bg-black text-white px-8 py-3 text-sm ${
+              !size ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-800"
+            }`}
           >
             ADD TO CART
           </button>
@@ -107,18 +127,28 @@ const Product = () => {
       </div>
       {/* ----- Description & Review Section ----- */}
       <div className="mt-20">
-        <div className="flex">
-          <b className="border px-5 py-3 text-sm">Description</b>
-          <p className="border px-5 py-3 text-sm">Reviews (122)</p>
+        <div className="flex border-b border-gray-200">
+          <button
+            className="px-6 py-3 text-sm font-semibold text-black border-b-2 border-black bg-white focus:outline-none transition-colors duration-200"
+            type="button"
+          >
+            Description
+          </button>
+          <button
+            className="px-6 py-3 text-sm font-semibold text-gray-500 hover:text-black border-b-2 border-transparent bg-white focus:outline-none transition-colors duration-200"
+            type="button"
+          >
+            Reviews (122)
+          </button>
         </div>
-        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
-          <p>
+        <div className="flex flex-col gap-5 border border-t-0 rounded-b-2xl px-8 py-8 text-base text-gray-700 bg-gradient-to-br from-white to-gray-50 shadow-md">
+          <p className="leading-relaxed">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
             natus vel, quae laboriosam rerum delectus maxime et, nostrum
             laudantium ex ab eaque adipisci. Culpa veritatis, eius recusandae
             laborum quibusdam magnam.
           </p>
-          <p>
+          <p className="leading-relaxed">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
             repellendus ea accusamus voluptatem, illum magni corporis quaerat
             exercitationem repudiandae alias doloribus animi mollitia esse

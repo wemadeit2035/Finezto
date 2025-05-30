@@ -14,6 +14,9 @@ import stardull_icon from "./stardull_icon.svg";
 import stripe_logo from "./stripe_logo.svg";
 import paypal_logo from "./paypal_logo.svg";
 import visa_logo from "./visa_logo.svg";
+import contact_image from "./contact_image.jpg";
+import about_image from "./about_image.jpg";
+import background_image from "./background_image.jpg";
 import img1 from "./img1.jpg";
 import img2 from "./img2.jpg";
 import img3 from "./img3.jpg";
@@ -1288,6 +1291,9 @@ export const assets = {
   stripe_logo,
   paypal_logo,
   visa_logo,
+  contact_image,
+  about_image,
+  background_image,
   img1,
   img2,
   img3,
@@ -6306,3 +6312,6 @@ export const products = [
     bestseller: true,
   },
 ];
+// ...existing code...
+
+export default assets;
