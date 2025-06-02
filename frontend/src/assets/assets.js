@@ -6312,6 +6312,4 @@ export const products = [
     bestseller: true,
   },
 ];
-// ...existing code...
-
 export default assets;
